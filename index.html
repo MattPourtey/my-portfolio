@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matthew Pourteymaur | Infrastructure & Homelab</title>
+<meta name="description" content="Matthew Pourteymaur: IT support technician building toward networking, data center, and systems engineering. Homelab projects, certifications, and what I'm working on now.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0f14;
+    --panel: #111821;
+    --panel-2: #16202b;
+    --line: #223041;
+    --text: #e6edf3;
+    --muted: #8b9bb0;
+    --accent: #3ddc97;
+    --accent-dim: rgba(61, 220, 151, 0.12);
+    --amber: #f5b14c;
+    --amber-dim: rgba(245, 177, 76, 0.12);
+    --blue: #5aa9ff;
+    --blue-dim: rgba(90, 169, 255, 0.12);
+    --grey-dim: rgba(139, 155, 176, 0.14);
+    --radius: 12px;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, Segoe UI, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+
+  /* Top bar */
+  header.top {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(11, 15, 20, 0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .top .wrap { display: flex; align-items: center; justify-content: space-between; height: 58px; gap: 16px; }
+  .brand { font-family: var(--mono); font-weight: 600; font-size: 15px; color: var(--text); white-space: nowrap; }
+  .brand span { color: var(--accent); }
+  nav { display: flex; gap: 18px; flex-wrap: wrap; }
+  nav a { color: var(--muted); font-size: 14px; }
+  nav a:hover { color: var(--text); text-decoration: none; }
+
+  /* Hero */
+  .hero { padding: 64px 0 32px; }
+  .prompt { font-family: var(--mono); color: var(--muted); font-size: 14px; margin-bottom: 14px; }
+  .prompt b { color: var(--accent); font-weight: 500; }
+  h1 { font-size: clamp(32px, 5vw, 48px); line-height: 1.1; margin: 0 0 14px; letter-spacing: -0.02em; }
+  .lede { color: var(--muted); font-size: 18px; max-width: 680px; margin: 0 0 24px; }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 16px; border-radius: 10px; font-weight: 600; font-size: 14px;
+    border: 1px solid var(--line); color: var(--text); background: var(--panel);
+  }
+  .btn:hover { text-decoration: none; border-color: var(--accent); }
+  .btn.primary { background: var(--accent); color: #062418; border-color: var(--accent); }
+
+  /* Stats */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 36px 0 8px; }
+  .stat { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
+  .stat .num { font-family: var(--mono); font-size: 30px; font-weight: 600; }
+  .stat .lbl { color: var(--muted); font-size: 13px; }
+
+  section { padding: 44px 0; }
+  .sec-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+  h2 { font-size: 24px; margin: 0; letter-spacing: -0.01em; }
+  h2 .tag { font-family: var(--mono); color: var(--accent); font-size: 14px; font-weight: 500; margin-right: 8px; }
+  .sub { color: var(--muted); font-size: 14px; margin: 4px 0 0; }
+
+  /* Now panel */
+  .now { display: grid; grid-template-columns: 1.2fr 1fr; gap: 14px; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+  .panel h3 { margin: 0 0 12px; font-size: 15px; font-family: var(--mono); color: var(--muted); font-weight: 500; }
+  .checklist { list-style: none; margin: 0; padding: 0; }
+  .checklist li { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-top: 1px solid var(--line); }
+  .checklist li:first-child { border-top: none; }
+  .box { flex: none; width: 16px; height: 16px; margin-top: 4px; border-radius: 4px; border: 1.5px solid var(--muted); }
+  .box.done { background: var(--accent); border-color: var(--accent); position: relative; }
+  .box.done::after { content: ""; position: absolute; left: 4px; top: 1px; width: 4px; height: 8px; border: solid #062418; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+  .checklist li.isdone span { color: var(--muted); text-decoration: line-through; }
+
+  /* Filters */
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; }
+  .filter {
+    font-family: var(--mono); font-size: 13px; padding: 6px 12px; border-radius: 999px;
+    border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer;
+  }
+  .filter[aria-pressed="true"] { color: var(--text); border-color: var(--accent); background: var(--accent-dim); }
+
+  /* Project cards */
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+  .card:hover { border-color: #2e4157; }
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .card h3 { margin: 0; font-size: 18px; }
+  .status { flex: none; font-family: var(--mono); font-size: 12px; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+  .status.active { color: var(--accent); background: var(--accent-dim); }
+  .status.done { color: var(--blue); background: var(--blue-dim); }
+  .status.planned { color: var(--amber); background: var(--amber-dim); }
+  .status.paused { color: var(--muted); background: var(--grey-dim); }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+  .card ul { margin: 0; padding-left: 18px; font-size: 14px; }
+  .card ul li { margin: 3px 0; }
+  .progress { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .bar { flex: 1; height: 6px; background: var(--panel-2); border-radius: 99px; overflow: hidden; }
+  .bar > i { display: block; height: 100%; background: var(--accent); border-radius: 99px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+  .tags span { font-family: var(--mono); font-size: 12px; color: var(--muted); border: 1px solid var(--line); padding: 2px 8px; border-radius: 6px; }
+  .next { font-size: 13px; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 10px; }
+  .next b { color: var(--amber); font-weight: 500; font-family: var(--mono); }
+
+  /* Certs */
+  .certs { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
+  .cert { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
+  .cert .issuer { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .cert .name { font-weight: 600; font-size: 18px; margin: 4px 0; }
+  .cert .when { font-size: 13px; color: var(--accent); }
+  .cert.next-cert { border-style: dashed; }
+  .cert.next-cert .when { color: var(--amber); }
+
+  /* Timeline */
+  .timeline { list-style: none; margin: 0; padding: 0 0 0 22px; border-left: 2px solid var(--line); }
+  .timeline li { position: relative; padding: 0 0 22px 10px; }
+  .timeline li::before { content: ""; position: absolute; left: -29px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+  .timeline .date { font-family: var(--mono); font-size: 13px; color: var(--accent); }
+  .timeline .what { font-weight: 600; }
+  .timeline .detail { color: var(--muted); font-size: 14px; }
+
+  /* Skills */
+  .skills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .skills .panel ul { margin: 0; padding-left: 18px; font-size: 14px; }
+  .skills .panel li { margin: 4px 0; }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0 48px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+  @media (max-width: 860px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .grid, .now { grid-template-columns: 1fr; }
+    .skills { grid-template-columns: 1fr; }
+    nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">matt<span>@</span>homelab:~$</div>
+    <nav>
+      <a href="#now">Now</a>
+      <a href="#projects">Projects</a>
+      <a href="#certs">Certifications</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero" style="padding-bottom:0">
+    <div class="prompt"><b>$</b> whoami</div>
+    <h1>Matthew Pourteymaur</h1>
+    <p class="lede">IT support technician in Las Vegas, building toward networking, data center, and systems engineering. I run a two-node Proxmox homelab and document everything I build, break, and fix.</p>
+    <div class="cta">
+      <a class="btn primary" href="#projects">View projects</a>
+      <a class="btn" href="#contact">Get in touch</a>
+    </div>
+
+    <div class="stats" id="stats"></div>
+  </section>
+
+  <section id="now">
+    <div class="sec-head">
+      <div>
+        <h2><span class="tag">01</span>Working on now</h2>
+        <p class="sub">Updated <span id="updated"></span></p>
+      </div>
+    </div>
+    <div class="now">
+      <div class="panel">
+        <h3>// current sprint</h3>
+        <ul class="checklist" id="sprint"></ul>
+      </div>
+      <div class="panel">
+        <h3>// recently shipped</h3>
+        <ul class="checklist" id="shipped"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="sec-head">
+      <div>
+        <h2><span class="tag">02</span>Projects</h2>
+        <p class="sub">Hands-on builds from my homelab, with status and what's next.</p>
+      </div>
+      <div class="filters" id="filters" role="group" aria-label="Filter projects by status"></div>
+    </div>
+    <div class="grid" id="project-grid"></div>
+  </section>
+
+  <section id="certs">
+    <div class="sec-head">
+      <div>
+        <h2><span class="tag">03</span>Certifications &amp; education</h2>
+      </div>
+    </div>
+    <div class="certs" id="cert-grid"></div>
+  </section>
+
+  <section id="timeline">
+    <div class="sec-head">
+      <div>
+        <h2><span class="tag">04</span>Timeline</h2>
+        <p class="sub">Milestones, newest first.</p>
+      </div>
+    </div>
+    <ul class="timeline" id="timeline-list"></ul>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head">
+      <div><h2><span class="tag">05</span>Skills</h2></div>
+    </div>
+    <div class="skills" id="skill-grid"></div>
+  </section>
+
+  <section id="contact">
+    <div class="sec-head">
+      <div>
+        <h2><span class="tag">06</span>Contact</h2>
+        <p class="sub">Open to networking, data center, and infrastructure roles.</p>
+      </div>
+    </div>
+    <div class="cta">
+      <!-- TODO: replace these three links with your real ones -->
+      <a class="btn primary" href="mailto:you@example.com">Email me</a>
+      <a class="btn" href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/your-username" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>&copy; <span id="year"></span> Matthew Pourteymaur</div>
+    <div>Built by hand, hosted on Cloudflare Pages.</div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   EDIT YOUR SITE HERE
+   Everything on the page is generated from this data.
+   To update the site: change the data below, save, push.
+   Status options: "active", "done", "planned", "paused"
+   ========================================================= */
+
+const SITE = {
+  updated: "October 2026",
+
+  stats: [
+    { num: "3",  lbl: "CompTIA certifications" },
+    { num: "2",  lbl: "Proxmox nodes in my lab" },
+    { num: "4",  lbl: "Self-hosted services" },
+    { num: "AUTO_ACTIVE", lbl: "Projects in progress" }
+  ],
+
+  sprint: [
+    { text: "Automate nightly backups with 7-day retention", done: false },
+    { text: "Disk-failure monitoring behind the RAID controller", done: false },
+    { text: "Copy backups off-site on a schedule", done: false },
+    { text: "Rack-mount the server and clean up cabling", done: false },
+    { text: "Start CCNA study plan", done: false }
+  ],
+
+  shipped: [
+    { text: "Upgraded Proxmox VE to 9.2 and moved to kernel 7.0", done: true },
+    { text: "Fixed broken package repositories after a major OS upgrade", done: true },
+    { text: "Full backup with end-to-end checksum verification", done: true },
+    { text: "Audited RAID 5 disk health through the HP Smart Array controller", done: true },
+    { text: "Documented every device on my home network", done: true },
+    { text: "Passed CompTIA Security+", done: true }
+  ],
+
+  projects: [
+    {
+      title: "Proxmox Homelab",
+      status: "active",
+      progress: 70,
+      summary: "Two-node virtualization lab: an HPE ProLiant DL380 G7 and a low-power Dell OptiPlex, managed remotely over Tailscale.",
+      highlights: [
+        "Proxmox VE 9.2 on Debian 13, Docker workloads, LXC containers",
+        "Zero open router ports: all remote access over a WireGuard-based tailnet",
+        "Temperature, disk, and service health checks on every maintenance pass"
+      ],
+      tags: ["Proxmox", "Debian", "Docker", "Tailscale", "HPE ProLiant"],
+      next: "Move Docker workloads into an LXC so Proxmox can snapshot and back them up natively."
+    },
+    {
+      title: "Server Maintenance Sprint",
+      status: "done",
+      progress: 100,
+      summary: "One-evening overhaul of my main server: diagnosed failed updates, upgraded safely, and built a verified backup first.",
+      highlights: [
+        "Found Debian 12 package sources on a Debian 13 host and corrected them",
+        "Upgraded 94 packages to Proxmox VE 9.2 with a background job that survives a dropped SSH session",
+        "Took a full backup before changes; SHA-256 matched on server and local copy",
+        "Kept the old kernel as a boot-menu rollback before moving to kernel 7.0"
+      ],
+      tags: ["Linux", "apt", "Change management", "Backups"],
+      next: ""
+    },
+    {
+      title: "Front Door Face Recognition",
+      status: "active",
+      progress: 60,
+      summary: "Local, cloud-free camera system: a Raspberry Pi streams video, and Frigate on my Proxmox node handles person detection and face recognition.",
+      highlights: [
+        "Rebuilt the Pi from an end-of-life 32-bit OS onto 64-bit Raspberry Pi OS",
+        "RTSP streaming with MediaMTX and hardware H.264 encoding",
+        "Cut dropped frames from 36% to 2.5% by diagnosing a camera bottleneck",
+        "Frigate in a Proxmox LXC with face recognition enabled"
+      ],
+      tags: ["Raspberry Pi", "Frigate", "RTSP", "LXC", "Computer vision"],
+      next: "Weatherproof mounting, or move to a PoE doorbell camera."
+    },
+    {
+      title: "Self-Hosted Cloud Storage",
+      status: "active",
+      progress: 50,
+      summary: "Nextcloud with a MariaDB backend in Docker, fronted by Nginx Proxy Manager, as a personal alternative to paid cloud storage.",
+      highlights: [
+        "Database backups taken with mariadb-dump for consistent restores",
+        "Maintenance mode during backups so files and database stay in sync"
+      ],
+      tags: ["Nextcloud", "MariaDB", "Docker Compose", "Nginx Proxy Manager"],
+      next: "Migrate to the low-power node and pin the image version."
+    },
+    {
+      title: "Network Documentation & Segmentation",
+      status: "active",
+      progress: 40,
+      summary: "Inventoried every device on my network with port scans and MAC vendor lookups, then planned how to isolate untrusted IoT gear.",
+      highlights: [
+        "Identified unknown devices from their MAC address prefixes",
+        "DHCP reservations so services never change address",
+        "Living network manifest with a topology diagram"
+      ],
+      tags: ["Networking", "DHCP", "nmap", "Documentation", "VLANs"],
+      next: "IoT VLAN using a managed switch and an OPNsense firewall VM."
+    },
+    {
+      title: "Encrypted Off-Site Replication",
+      status: "done",
+      progress: 100,
+      summary: "GPG-encrypted replication of homelab data to an off-site location, so a local disaster doesn't take the backups with it.",
+      highlights: [],
+      tags: ["GPG", "Backups", "Security"],
+      next: ""
+    },
+    {
+      title: "AI-Assisted Server Operations",
+      status: "active",
+      progress: 50,
+      summary: "Managing my servers with an AI coding agent over SSH key authentication, with a human approval on every command.",
+      highlights: [
+        "Passphrase-protected ed25519 key held in ssh-agent",
+        "Read-only diagnostics first; every change reviewed before it runs"
+      ],
+      tags: ["SSH", "Automation", "Security"],
+      next: "Write a runbook file the agent loads at the start of each session."
+    },
+    {
+      title: "Workflow Automation with n8n",
+      status: "paused",
+      progress: 30,
+      summary: "Self-hosted n8n workflows, starting with automatic tracking of recruiter emails.",
+      highlights: [],
+      tags: ["n8n", "Automation"],
+      next: ""
+    }
+  ],
+
+  certs: [
+    { issuer: "CompTIA", name: "Security+", when: "Passed Oct 2026" },
+    { issuer: "CompTIA", name: "Network+",  when: "Certified" },
+    { issuer: "CompTIA", name: "A+",        when: "Certified" },
+    { issuer: "Cisco",   name: "CCNA",      when: "Next up", next: true }
+  ],
+
+  education: { issuer: "College of Southern Nevada", name: "AAS, Networking & Cybersecurity", when: "In progress" },
+
+  timeline: [
+    { date: "Oct 2026", what: "Server maintenance sprint", detail: "Proxmox VE 9.2, kernel 7.0, verified backups, RAID health audit." },
+    { date: "Oct 2026", what: "Passed CompTIA Security+", detail: "Third CompTIA certification." },
+    { date: "Sep 2026", what: "Face recognition camera live", detail: "Pi streaming to Frigate with person detection and face recognition." },
+    { date: "May 2026", what: "Proxmox installed on the DL380 G7", detail: "Second node added to the homelab." }
+  ],
+
+  skills: [
+    { group: "Infrastructure", items: ["Proxmox VE, LXC, VMs", "Linux administration (Debian)", "Docker and Docker Compose", "RAID and storage health", "Rack servers (HPE ProLiant)"] },
+    { group: "Networking", items: ["TCP/IP, DHCP, DNS", "VLANs and managed switching", "Tailscale and WireGuard", "Reverse proxies", "Network scanning and inventory"] },
+    { group: "Security & Ops", items: ["SSH key auth and hardening", "Backup and restore verification", "Change management", "POS and site support", "Documentation and runbooks"] }
+  ]
+};
+
+/* ============ Rendering (no need to edit below) ============ */
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const STATUS_LABEL = { active: "In progress", done: "Done", planned: "Planned", paused: "Paused" };
+
+$("updated").textContent = SITE.updated;
+$("year").textContent = new Date().getFullYear();
+
+const activeCount = SITE.projects.filter(p => p.status === "active").length;
+$("stats").innerHTML = SITE.stats.map(s => `
+  <div class="stat"><div class="num">${esc(s.num === "AUTO_ACTIVE" ? activeCount : s.num)}</div><div class="lbl">${esc(s.lbl)}</div></div>`).join("");
+
+const checklist = items => items.map(i => `
+  <li class="${i.done ? "isdone" : ""}"><i class="box ${i.done ? "done" : ""}"></i><span>${esc(i.text)}</span></li>`).join("");
+$("sprint").innerHTML = checklist(SITE.sprint);
+$("shipped").innerHTML = checklist(SITE.shipped);
+
+function renderProjects(filter) {
+  const list = filter === "all" ? SITE.projects : SITE.projects.filter(p => p.status === filter);
+  $("project-grid").innerHTML = list.map(p => `
+    <article class="card">
+      <div class="card-top">
+        <h3>${esc(p.title)}</h3>
+        <span class="status ${esc(p.status)}">${esc(STATUS_LABEL[p.status] || p.status)}</span>
+      </div>
+      <p>${esc(p.summary)}</p>
+      ${p.highlights.length ? `<ul>${p.highlights.map(h => `<li>${esc(h)}</li>`).join("")}</ul>` : ""}
+      <div class="progress"><div class="bar"><i style="width:${Number(p.progress) || 0}%"></i></div><span>${Number(p.progress) || 0}%</span></div>
+      ${p.next ? `<div class="next"><b>next:</b> ${esc(p.next)}</div>` : ""}
+      <div class="tags">${p.tags.map(t => `<span>${esc(t)}</span>`).join("")}</div>
+    </article>`).join("");
+}
+
+const filters = ["all", "active", "done", "planned", "paused"]
+  .filter(f => f === "all" || SITE.projects.some(p => p.status === f));
+$("filters").innerHTML = filters.map(f => `
+  <button class="filter" data-f="${f}" aria-pressed="${f === "all"}">${f === "all" ? "All" : STATUS_LABEL[f]}</button>`).join("");
+$("filters").addEventListener("click", e => {
+  const btn = e.target.closest(".filter");
+  if (!btn) return;
+  document.querySelectorAll(".filter").forEach(b => b.setAttribute("aria-pressed", b === btn));
+  renderProjects(btn.dataset.f);
+});
+renderProjects("all");
+
+$("cert-grid").innerHTML = [...SITE.certs, SITE.education].map(c => `
+  <div class="cert ${c.next ? "next-cert" : ""}">
+    <div class="issuer">${esc(c.issuer)}</div>
+    <div class="name">${esc(c.name)}</div>
+    <div class="when">${esc(c.when)}</div>
+  </div>`).join("");
+
+$("timeline-list").innerHTML = SITE.timeline.map(t => `
+  <li><div class="date">${esc(t.date)}</div><div class="what">${esc(t.what)}</div><div class="detail">${esc(t.detail)}</div></li>`).join("");
+
+$("skill-grid").innerHTML = SITE.skills.map(s => `
+  <div class="panel"><h3>// ${esc(s.group.toLowerCase())}</h3><ul>${s.items.map(i => `<li>${esc(i)}</li>`).join("")}</ul></div>`).join("");
+</script>
+</body>
+</html>
