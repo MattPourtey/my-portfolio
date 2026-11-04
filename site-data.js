@@ -26,9 +26,9 @@ window.SITE = {
     focus: "IT infrastructure",
     photo: "", // e.g. "assets/headshot.jpg" (square crop works best)
     headline:
-      "Site support technician on the Las Vegas Strip, building toward *data center and network engineering*.",
+      "IT support technician in Las Vegas, building toward *data center and network engineering*.",
     intro:
-      "I deploy and support point-of-sale and network hardware across four resort properties. After hours I run a two-node Proxmox homelab, study for the CCNA, and turn what I learn into working systems."
+      "I support end users, hardware, and network equipment across multiple sites. After hours I run a two-node Proxmox homelab, study for the CCNA, and turn what I learn into working systems."
   },
 
   links: {
@@ -42,7 +42,7 @@ window.SITE = {
   // Hero terminal card
   terminal: [
     { cmd: "whoami", out: "matt pourteymaur" },
-    { cmd: "cat role.txt", out: "POS & Site Support Technician @ Caesars Entertainment" },
+    { cmd: "cat role.txt", out: "IT Support Technician · Las Vegas" },
     { cmd: "ls certs/", out: "a+  network+  security+  ccna.partial" },
     { cmd: "ping -c1 next-hop", out: "data center & network ops: *reachable*" }
   ],
@@ -153,22 +153,15 @@ window.SITE = {
       status: "reached"
     },
     {
-      host: "frontline.customer",
-      title: "Sales, events, and video production",
-      detail: "Customer-facing work in car sales, event staffing, and photo and video production.",
-      status: "reached"
-    },
-    {
       host: "cert.comptia",
       title: "CompTIA A+, Network+, Security+",
       detail: "The foundation: hardware, networking, and security fundamentals. Security+ passed October 2026.",
       status: "reached"
     },
     {
-      host: "site-support.caesars",
-      title: "POS & Site Support Technician",
-      org: "Caesars Entertainment",
-      detail: "Deploying and supporting point-of-sale and network hardware across four Las Vegas properties, from configuration to ticket resolution.",
+      host: "it-support.las-vegas",
+      title: "IT Support Technician",
+      detail: "Supporting end users, hardware, and network equipment across multiple sites, from deployment and configuration to ticket resolution.",
       status: "current"
     },
     {
@@ -176,24 +169,6 @@ window.SITE = {
       title: "Cisco CCNA",
       detail: "Routing, switching, and subnetting at the depth network teams expect.",
       status: "progress"
-    },
-    {
-      host: "dc.operations",
-      title: "Data center technician",
-      detail: "Racks, structured cabling, and hardware lifecycle inside a production data center.",
-      status: "next"
-    },
-    {
-      host: "net.engineering",
-      title: "Network engineer",
-      detail: "Designing and running routed and switched networks: VLANs, firewalls, and monitoring.",
-      status: "planned"
-    },
-    {
-      host: "systems-engineer",
-      title: "Systems engineer",
-      detail: "Owning infrastructure end to end: compute, storage, network, and the automation that ties them together.",
-      status: "destination"
     }
   ],
 
