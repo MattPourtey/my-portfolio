@@ -24,7 +24,7 @@ window.SITE = {
     handle: "mattpourtey",
     location: "Las Vegas, NV",
     focus: "IT infrastructure",
-    photo: " headshot.jpg", // headshot.jpg" (square crop works best)
+    photo: "headshot.jpg", // headshot.jpg" (square crop works best)
     headline:
       "IT support technician in Las Vegas, building toward *data center and network engineering*.",
     intro:
