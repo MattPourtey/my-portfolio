@@ -160,7 +160,7 @@ window.SITE = {
     },
     {
       host: "it-support.las-vegas",
-      title: "IT Support Technician",
+      title: "IT Support Specialist",
       detail: "Supporting end users, hardware, and network equipment across multiple sites, from deployment and configuration to ticket resolution.",
       status: "current"
     },
