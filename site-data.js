@@ -32,7 +32,7 @@ window.SITE = {
   },
 
   links: {
-    resume: "",   // e.g. "assets/Matt-Pourteymaur-Resume.pdf"
+   // resume: "",   // e.g. "assets/Matt-Pourteymaur-Resume.pdf"
     linkedin: "https://www.linkedin.com/in/mattpourtey/", // e.g. "https://www.linkedin.com/in/your-handle"
     github: "https://github.com/MattPourtey",
     email: "",    // a professional address, e.g. matt@mattpourtey.com
@@ -124,24 +124,24 @@ window.SITE = {
       links: {}
     },
     {
-      title: "KinWire IT",
-      status: "planning",
-      category: "Business",
-      summary:
-        "A small IT services business I'm planning for independent Las Vegas restaurants, bars, and food trucks, built around PCI-minded network segmentation and dependable POS support.",
-      next: "Business plan sessions with a SCORE mentor",
-      stack: ["Networking", "PCI DSS", "POS"],
-      links: {}
+      //title: "KinWire IT",
+//status: "planning",
+   //   category: "Business",
+     // summary:
+     //   "A small IT services business I'm planning for independent Las Vegas restaurants, bars, and food trucks, built around PCI-minded network segmentation and dependable POS support.",
+     // next: "Business plan sessions with a SCORE mentor",
+     // stack: ["Networking", "PCI DSS", "POS"],
+   //   links: {}
     },
     {
-      title: "Family history timeline",
-      status: "active",
-      category: "Web",
-      summary:
+  //    title: "Family history timeline",
+//status: "active",
+  //    category: "Web",
+   //   summary:
         "An interactive single-page timeline tracing my family across nine generations, built from family records and historical research.",
-      next: "",
-      stack: ["HTML", "CSS", "JavaScript"],
-      links: {}
+  //    next: "",
+   //   stack: ["HTML", "CSS", "JavaScript"],
+//      links: {}
     }
   ],
 
