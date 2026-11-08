@@ -24,7 +24,7 @@ window.SITE = {
     handle: "mattpourtey",
     location: "Las Vegas, NV",
     focus: "IT infrastructure",
-    photo: "", // e.g. "assets/headshot.jpg" (square crop works best)
+    photo: " headshot.jpg", // headshot.jpg" (square crop works best)
     headline:
       "IT support technician in Las Vegas, building toward *data center and network engineering*.",
     intro:
@@ -33,7 +33,7 @@ window.SITE = {
 
   links: {
     resume: "",   // e.g. "assets/Matt-Pourteymaur-Resume.pdf"
-    linkedin: "", // e.g. "https://www.linkedin.com/in/your-handle"
+    linkedin: "https://www.linkedin.com/in/mattpourtey/", // e.g. "https://www.linkedin.com/in/your-handle"
     github: "https://github.com/MattPourtey",
     email: "",    // a professional address, e.g. matt@mattpourtey.com
     source: "https://github.com/MattPourtey/my-portfolio"
