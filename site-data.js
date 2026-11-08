@@ -24,7 +24,7 @@ window.SITE = {
     handle: "mattpourtey",
     location: "Las Vegas, NV",
     focus: "IT infrastructure",
-    photo: "headshot.jpg", // headshot.jpg" (square crop works best)
+    photo: "headshot.jpg", // square crop works best
     headline:
       "IT support technician in Las Vegas, building toward *data center and network engineering*.",
     intro:
@@ -124,24 +124,26 @@ window.SITE = {
       links: {}
     },
     {
-      //title: "KinWire IT",
-//status: "planning",
-   //   category: "Business",
-     // summary:
-     //   "A small IT services business I'm planning for independent Las Vegas restaurants, bars, and food trucks, built around PCI-minded network segmentation and dependable POS support.",
-     // next: "Business plan sessions with a SCORE mentor",
-     // stack: ["Networking", "PCI DSS", "POS"],
-   //   links: {}
+      title: "KinWire IT",
+      hide: true,
+      status: "planning",
+      category: "Business",
+      summary:
+        "A small IT services business I'm planning for independent Las Vegas restaurants, bars, and food trucks, built around PCI-minded network segmentation and dependable POS support.",
+      next: "Business plan sessions with a SCORE mentor",
+      stack: ["Networking", "PCI DSS", "POS"],
+      links: {}
     },
     {
-  //    title: "Family history timeline",
-//status: "active",
-  //    category: "Web",
-   //   summary:
+      title: "Family history timeline",
+      hide: true,
+      status: "active",
+      category: "Web",
+      summary:
         "An interactive single-page timeline tracing my family across nine generations, built from family records and historical research.",
-  //    next: "",
-   //   stack: ["HTML", "CSS", "JavaScript"],
-//      links: {}
+      next: "",
+      stack: ["HTML", "CSS", "JavaScript"],
+      links: {}
     }
   ],
 
