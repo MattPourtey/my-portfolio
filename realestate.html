@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a1015">
+<meta property="og:title" content="Real estate · Matt Pourteymaur">
+<meta property="og:description" content="Las Vegas real estate notes, smart-property builds, and deal tools. Coming soon.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a1015'/%3E%3Ctext x='32' y='41' font-family='Arial,sans-serif' font-weight='800' font-size='25' text-anchor='middle' fill='%233ccfe3'%3EMP%3C/text%3E%3C/svg%3E">
+<title>Real estate · Matt Pourteymaur</title>
+<meta name="description" content="Matt Pourteymaur's real estate section: Las Vegas market notes, smart and secure property builds, and deal tools. Coming soon.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Same tokens and components as index.html (rack-and-route theme). */
+:root{
+  --bg:#0a1015; --bg-raise:#0e161d; --bg-hover:#131e27;
+  --line:#1a2731; --line-strong:#2a3c48;
+  --fg:#e3edf2; --fg-dim:#a0b2be; --fg-faint:#6f8495;
+  --accent:#3ccfe3; --accent-ink:#03222a; --accent-soft:rgba(60,207,227,.13); --accent-line:rgba(60,207,227,.38);
+  --ok:#5fd39a; --warn:#f0b54a; --idle:#7f92a0;
+  --grid:rgba(110,170,200,.065);
+  --shadow:0 30px 60px -32px rgba(0,0,0,.75);
+  --term-bg:#060b0f; --term-line:#17242d; --term-fg:#d6e7ee; --term-out:#a9c2cc; --term-dim:#5f7a87; --term-acc:#5fdcee; --term-ok:#6fdc9f;
+  --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --sans:"Archivo",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius:12px;
+  --wrap:1140px;
+  --gutter:clamp(16px,4vw,32px);
+  color-scheme:dark;
+}
+:root[data-theme="light"]{
+  --bg:#f2f6f8; --bg-raise:#ffffff; --bg-hover:#f6f9fb;
+  --line:#d9e2e8; --line-strong:#bfccd5;
+  --fg:#0b1820; --fg-dim:#405565; --fg-faint:#5d7180;
+  --accent:#077a8f; --accent-ink:#ffffff; --accent-soft:rgba(7,122,143,.09); --accent-line:rgba(7,122,143,.36);
+  --ok:#167c4a; --warn:#95610a; --idle:#6c7f8c;
+  --grid:rgba(20,70,100,.07);
+  --shadow:0 30px 60px -34px rgba(10,40,60,.45);
+  --term-bg:#0b141a; --term-line:#1c2b34;
+  color-scheme:light;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-left:max(var(--gutter),env(safe-area-inset-left,0px));padding-right:max(var(--gutter),env(safe-area-inset-right,0px))}
+.led{display:inline-block;flex:none;width:8px;height:8px;border-radius:50%;background:var(--st,currentColor)}
+.st-ok{--st:var(--ok)} .st-warn{--st:var(--warn)} .st-idle{--st:var(--idle)} .st-acc{--st:var(--accent)}
+.pulse{animation:pulse 2.4s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--st) 55%,transparent)}70%,100%{box-shadow:0 0 0 7px transparent}}
+svg.i{width:16px;height:16px;flex:none}
+
+/* Nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--bg);background:color-mix(in srgb,var(--bg) 86%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:20px;height:62px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font:500 14px var(--mono);color:var(--fg);min-width:0}
+.brand-mark{width:32px;height:32px;border:1px solid var(--line-strong);border-radius:8px;display:grid;place-items:center;font:800 12px var(--display);font-stretch:115%;color:var(--accent);background:var(--bg-raise)}
+.brand .crumb{color:var(--fg-faint)}
+.brand .crumb b{color:var(--accent);font-weight:500}
+.brand .crumb{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media (max-width:480px){.brand .crumb .pre{display:none}}
+.nav-links{display:flex;gap:2px;margin:0 0 0 auto;padding:0;list-style:none}
+.nav-links a{display:block;padding:7px 11px;border-radius:7px;font-size:14px;color:var(--fg-dim);text-decoration:none;transition:color .15s,background .15s}
+.nav-links a:hover{color:var(--fg);background:var(--bg-hover)}
+.nav-links a[aria-current="page"]{color:var(--fg);background:var(--bg-hover);box-shadow:inset 0 0 0 1px var(--line-strong)}
+.nav-tools{display:flex;align-items:center;gap:8px}
+.icon-btn{width:36px;height:36px;display:grid;place-items:center;border:1px solid var(--line);background:transparent;color:var(--fg-dim);border-radius:8px;cursor:pointer;transition:color .15s,border-color .15s}
+.icon-btn:hover{color:var(--fg);border-color:var(--line-strong)}
+@media (max-width:780px){.nav-links{display:none}.nav-tools{margin-left:auto}}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 18px;border-radius:9px;border:1px solid var(--line-strong);background:var(--bg-raise);color:var(--fg);font:500 15px var(--sans);text-decoration:none;cursor:pointer;white-space:nowrap;transition:border-color .15s,background .15s,filter .15s}
+.btn:hover{border-color:var(--accent-line);background:var(--bg-hover)}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn-primary:hover{background:var(--accent);border-color:var(--accent);filter:brightness(1.08)}
+.btn-sm{height:36px;padding:0 14px;font-size:14px}
+
+/* Hero */
+.hero{position:relative;border-bottom:1px solid var(--line);overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:radial-gradient(ellipse 75% 80% at 72% 40%,#000 25%,transparent 75%);mask-image:radial-gradient(ellipse 75% 80% at 72% 40%,#000 25%,transparent 75%)}
+.hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(36px,5vw,72px);align-items:center;padding-block:clamp(48px,8vw,108px) clamp(52px,7vw,92px)}
+@media (max-width:920px){.hero .wrap{grid-template-columns:minmax(0,1fr)}}
+.sec-path{font:500 13px var(--mono);color:var(--accent);margin:0 0 12px}
+.eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:22px;font:500 12.5px/1.5 var(--mono);color:var(--fg-dim);letter-spacing:.03em}
+.h1{font-family:var(--display);font-weight:800;font-stretch:118%;font-size:clamp(2.55rem,1.1rem + 5.4vw,4.6rem);line-height:.96;letter-spacing:-.03em;margin:0;text-wrap:balance}
+.headline{font-size:clamp(1.15rem,1rem + .6vw,1.45rem);line-height:1.42;font-weight:500;color:var(--fg);margin:24px 0 0;max-width:34ch;text-wrap:balance}
+.headline em,.term em{font-style:normal;color:var(--accent)}
+.term em{color:var(--term-ok)}
+.intro{color:var(--fg-dim);margin:16px 0 0;max-width:54ch;font-size:16.5px}
+.cta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+
+/* Terminal */
+.term{background:var(--term-bg);border:1px solid var(--term-line);border-radius:14px;color:var(--term-fg);font:13.5px/1.75 var(--mono);box-shadow:var(--shadow);min-width:0}
+.term-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 16px;border-bottom:1px solid var(--term-line);font-size:12px;color:var(--term-dim)}
+.term-bar .conn{display:flex;align-items:center;gap:7px;color:var(--term-ok)}
+.term-bar .conn .led{--st:var(--term-ok)}
+.term-body{padding:16px 18px 20px}
+.t-cmd{display:flex;gap:10px;margin-top:10px}
+.t-cmd:first-child{margin-top:0}
+.t-p{color:var(--term-acc);flex:none;user-select:none}
+.t-c{color:var(--term-fg);font-weight:500}
+.t-o{color:var(--term-out);padding-left:30px;overflow-wrap:anywhere}
+.t-o .dim{color:var(--term-dim)}
+.cursor{display:inline-block;width:.6em;height:1.15em;vertical-align:-.22em;background:var(--term-acc);animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* Status strip (same as "Now") */
+.now{background:var(--bg-raise);border-bottom:1px solid var(--line)}
+.now .wrap{display:grid;grid-template-columns:auto repeat(3,minmax(0,1fr))}
+.now-head{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:20px 28px 20px 0;border-right:1px solid var(--line)}
+.now-title{display:flex;align-items:center;gap:8px;font:600 13px var(--mono);color:var(--fg)}
+.now-upd{font:12px var(--mono);color:var(--fg-faint)}
+.now-item{padding:20px 24px;border-right:1px solid var(--line);min-width:0}
+.now-item:last-child{border-right:0;padding-right:0}
+.now-label{font:600 11px var(--mono);letter-spacing:.11em;text-transform:uppercase;color:var(--fg-faint)}
+.now-text{margin-top:3px;font-size:14.5px;line-height:1.45;color:var(--fg)}
+@media (max-width:920px){
+  .now .wrap{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .now-head{grid-column:1/-1;flex-direction:row;align-items:center;justify-content:space-between;padding:14px 0;border-right:0;border-bottom:1px solid var(--line)}
+  .now-item:first-of-type{padding-left:0}
+}
+@media (max-width:620px){
+  .now .wrap{grid-template-columns:minmax(0,1fr)}
+  .now-item,.now-item:first-of-type{padding:14px 0;border-right:0;border-bottom:1px solid var(--line)}
+  .now-item:last-child{border-bottom:0}
+}
+
+/* Sections */
+.section{padding-block:clamp(64px,9vw,116px);border-bottom:1px solid var(--line);scroll-margin-top:62px}
+.sec-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:22px 40px;margin-bottom:36px}
+.sec-head > div{min-width:0;max-width:640px}
+.h2{font-family:var(--display);font-weight:780;font-stretch:112%;font-size:clamp(1.95rem,1.2rem + 2.5vw,2.9rem);line-height:1.04;letter-spacing:-.022em;margin:0;text-wrap:balance}
+.sec-lead{color:var(--fg-dim);margin:14px 0 0;max-width:58ch}
+
+/* Cards */
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:1020px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:660px){.grid{grid-template-columns:minmax(0,1fr)}}
+.proj{display:flex;flex-direction:column;gap:12px;min-width:0;padding:22px;background:var(--bg-raise);border:1px solid var(--line);border-radius:var(--radius);transition:border-color .2s}
+.proj:hover{border-color:var(--line-strong)}
+.proj-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.pill{display:inline-flex;align-items:center;gap:7px;padding:5px 10px 5px 9px;border:1px solid var(--line-strong);border-radius:999px;font:500 12px/1 var(--mono);color:var(--fg);white-space:nowrap}
+.proj-cat{font:500 11.5px var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--fg-faint)}
+.proj h3{font-family:var(--display);font-weight:700;font-stretch:106%;font-size:1.22rem;line-height:1.22;letter-spacing:-.01em;margin:4px 0 0;text-wrap:balance}
+.proj-sum{margin:0;color:var(--fg-dim);font-size:15px}
+.proj-hl{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:7px;font-size:14.5px;color:var(--fg-dim)}
+.proj-hl li{display:grid;grid-template-columns:14px minmax(0,1fr);gap:8px}
+.proj-hl li::before{content:"\203A";font:600 15px/1.45 var(--mono);color:var(--accent)}
+.proj-foot{margin-top:auto;display:flex;flex-direction:column;gap:12px;padding-top:4px}
+.proj-next{display:flex;gap:10px;margin:0;padding-top:12px;border-top:1px dashed var(--line-strong);font:13px/1.5 var(--mono);color:var(--fg-dim)}
+.proj-next b{flex:none;color:var(--accent);font-weight:500}
+.tags{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
+.tags li{padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);font:12px/1 var(--mono);color:var(--fg-dim)}
+
+/* Notify box */
+.cta .wrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:36px 56px;align-items:end}
+@media (max-width:860px){.cta .wrap{grid-template-columns:minmax(0,1fr)}}
+.h2-xl{font-size:clamp(2.3rem,1.2rem + 4.2vw,4.2rem);font-stretch:118%;line-height:.98}
+.cta-box{display:grid;gap:12px;min-width:0}
+.cta-box .btn{width:100%}
+.log{padding:14px 16px;border:1px dashed var(--accent-line);border-radius:10px;background:var(--bg);font:12.5px/1.7 var(--mono);color:var(--fg-dim)}
+.log b{color:var(--accent);font-weight:500}
+
+/* Footer */
+.foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding-block:28px;font:12.5px var(--mono);color:var(--fg-faint)}
+.foot a{color:var(--fg-dim);text-decoration:none}
+.foot a:hover{color:var(--accent)}
+.foot-links{display:flex;flex-wrap:wrap;gap:6px 18px}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+</style>
+<script>
+(function(){try{var t=localStorage.getItem("mp-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
+</script>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Back to home"><span class="brand-mark">MP</span><span class="crumb"><span class="pre">mattpourtey/</span><b>realestate</b></span></a>
+    <ul class="nav-links">
+      <li><a href="/#projects">Projects</a></li>
+      <li><a href="/#roadmap">Roadmap</a></li>
+      <li><a href="/#credentials">Credentials</a></li>
+      <li><a href="/realestate" aria-current="page">Real estate</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+    <div class="nav-tools">
+      <button class="icon-btn" id="theme-btn" type="button" aria-label="Switch theme"></button>
+      <a class="btn btn-sm" href="/#contact">Get in touch</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="re-h">
+    <div class="wrap">
+      <div>
+        <p class="sec-path">~/realestate</p>
+        <div class="eyebrow"><i class="led st-warn pulse"></i>Las Vegas Valley · under construction</div>
+        <h1 class="h1" id="re-h">Real estate</h1>
+        <p class="headline">Property, viewed like infrastructure: <em>research the site, wire it right, run the numbers.</em></p>
+        <p class="intro">This is where I'll keep my notes on the Las Vegas market, write-ups on setting up smart and secure properties, and the tools I build to size up a deal. The directory exists; the files are on the way.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#planned">See what's planned</a>
+          <a class="btn" href="/">Back to the dashboard</a>
+        </div>
+      </div>
+      <div class="term" aria-label="Section status">
+        <div class="term-bar"><span>ssh matt@mattpourtey:~/realestate</span><span class="conn"><i class="led"></i>connected</span></div>
+        <div class="term-body">
+          <div class="t-cmd"><span class="t-p">~ $</span><span class="t-c">cd realestate &amp;&amp; ls -la</span></div>
+          <div class="t-o">drwxr-xr-x  market-notes/  <span class="dim">0 files</span><br>drwxr-xr-x  smart-property/  <span class="dim">0 files</span><br>drwxr-xr-x  deal-tools/  <span class="dim">0 files</span></div>
+          <div class="t-cmd"><span class="t-p">~ $</span><span class="t-c">cat STATUS</span></div>
+          <div class="t-o">section initialized · content: <em>coming soon</em></div>
+          <div class="t-cmd"><span class="t-p">~ $</span><span class="t-c">ping -c1 las-vegas.market</span></div>
+          <div class="t-o">64 bytes from las-vegas.market: <em>reachable</em></div>
+          <div class="t-cmd"><span class="t-p">~ $</span><span class="cursor" aria-hidden="true"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="now" aria-label="Section status">
+    <div class="wrap">
+      <div class="now-head"><span class="now-title"><i class="led st-warn pulse"></i>Status</span><span class="now-upd">updated Nov 2026</span></div>
+      <div class="now-item"><div class="now-label">Stage</div><div class="now-text">Planning the first write-ups</div></div>
+      <div class="now-item"><div class="now-label">Focus</div><div class="now-text">Las Vegas Valley residential</div></div>
+      <div class="now-item"><div class="now-label">Angle</div><div class="now-text">Where IT and property meet</div></div>
+    </div>
+  </section>
+
+  <section class="section" id="planned" aria-labelledby="planned-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="sec-path">~/realestate/planned</p>
+          <h2 class="h2" id="planned-h">What's going here</h2>
+          <p class="sec-lead">Three directories, all in planning. Each one will fill in as I research, build, and write things up.</p>
+        </div>
+      </div>
+      <div class="grid">
+        <article class="proj">
+          <div class="proj-top"><span class="pill st-idle"><i class="led"></i>Planning</span><span class="proj-cat">Research</span></div>
+          <h3>Las Vegas market notes</h3>
+          <p class="proj-sum">Plain-language notes on the valley: how neighborhoods compare, what's being built, and the trends worth watching.</p>
+          <ul class="proj-hl">
+            <li>Neighborhood-by-neighborhood breakdowns</li>
+            <li>Condo, HOA, and new-build tradeoffs</li>
+            <li>Links to the public data behind every claim</li>
+          </ul>
+          <div class="proj-foot">
+            <p class="proj-next"><b>next &rarr;</b><span>Pick the first three neighborhoods to cover</span></p>
+            <ul class="tags"><li>Las Vegas</li><li>Market research</li></ul>
+          </div>
+        </article>
+
+        <article class="proj">
+          <div class="proj-top"><span class="pill st-idle"><i class="led"></i>Planning</span><span class="proj-cat">Infrastructure</span></div>
+          <h3>Smart, secure properties</h3>
+          <p class="proj-sum">How I'd wire a home or rental: a segmented network, local-first cameras, and remote management with no monthly cloud fees.</p>
+          <ul class="proj-hl">
+            <li>VLANs to keep IoT gear off the main network</li>
+            <li>Camera streams to a local NVR, not a subscription</li>
+            <li>Remote access over a private tailnet</li>
+          </ul>
+          <div class="proj-foot">
+            <p class="proj-next"><b>next &rarr;</b><span>Document a reference network layout</span></p>
+            <ul class="tags"><li>VLANs</li><li>Frigate</li><li>Tailscale</li><li>PoE</li></ul>
+          </div>
+        </article>
+
+        <article class="proj">
+          <div class="proj-top"><span class="pill st-idle"><i class="led"></i>Planning</span><span class="proj-cat">Tools</span></div>
+          <h3>Deal tools</h3>
+          <p class="proj-sum">Small calculators and trackers for running the numbers on a property before getting attached to it.</p>
+          <ul class="proj-hl">
+            <li>Monthly cost breakdown: mortgage, HOA, taxes, insurance</li>
+            <li>Rent-vs-buy comparison</li>
+            <li>A simple tracker for properties I'm watching</li>
+          </ul>
+          <div class="proj-foot">
+            <p class="proj-next"><b>next &rarr;</b><span>Build the monthly cost calculator</span></p>
+            <ul class="tags"><li>HTML</li><li>JavaScript</li><li>Spreadsheets</li></ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cta" aria-labelledby="cta-h">
+    <div class="wrap">
+      <div>
+        <p class="sec-path">~/realestate/contact</p>
+        <h2 class="h2 h2-xl" id="cta-h">Know the valley?</h2>
+        <p class="sec-lead">If you're an agent, investor, or homeowner in Las Vegas and want to compare notes, or you need a property's network done right, I'd like to hear from you.</p>
+      </div>
+      <div class="cta-box">
+        <div class="log"><b>[info]</b> section live · first write-ups in progress<br><b>[info]</b> check back, or reach out below</div>
+        <a class="btn btn-primary" href="https://www.linkedin.com/in/mattpourtey/" target="_blank" rel="noopener">Message me on LinkedIn<svg class="i" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 10.5 11 5M6.5 5H11v4.5"/></svg></a>
+        <a class="btn" href="/">Back to mattpourtey.com</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span id="foot-left">© 2026 Matt Pourteymaur · Las Vegas, NV</span>
+    <span class="foot-links"><a href="https://github.com/MattPourtey/my-portfolio" target="_blank" rel="noopener">source on GitHub &#8599;</a><span>updated Nov 2026</span></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var root = document.documentElement;
+  var btn = document.getElementById("theme-btn");
+  var SV = 'viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="i"';
+  var SUN = '<svg ' + SV + '><circle cx="8" cy="8" r="2.75"/><path d="M8 1.5v1.25M8 13.25v1.25M1.5 8h1.25M13.25 8h1.25M3.4 3.4l.9.9M11.7 11.7l.9.9M3.4 12.6l.9-.9M11.7 4.3l.9-.9"/></svg>';
+  var MOON = '<svg ' + SV + '><path d="M13.25 9.6A5.5 5.5 0 0 1 6.4 2.75a5.5 5.5 0 1 0 6.85 6.85z"/></svg>';
+  function theme() { return root.getAttribute("data-theme") === "light" ? "light" : "dark"; }
+  function paint() {
+    var t = theme();
+    btn.innerHTML = t === "light" ? MOON : SUN;
+    btn.setAttribute("aria-label", t === "light" ? "Switch to dark theme" : "Switch to light theme");
+  }
+  btn.addEventListener("click", function () {
+    var next = theme() === "light" ? "dark" : "light";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("mp-theme", next); } catch (e) {}
+    paint();
+  });
+  paint();
+  document.getElementById("foot-left").textContent = "© " + new Date().getFullYear() + " Matt Pourteymaur · Las Vegas, NV";
+})();
+</script>
+</body>
+</html>
